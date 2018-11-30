@@ -19,7 +19,16 @@ $(document).ready(initializeApp);
  *  { name: 'Jill', course: 'Comp Sci', grade: 85 }
  * ];
  */
-var student_array = [];
+var student_array;
+var new_id;
+
+
+//   $.ajax(ajaxOptions).then(function(response){ //a promise
+//       for (var albumIndex=0;albumIndex<response.feed.entry.length;albumIndex++){
+//           console.log(response.feed.entry[albumIndex]['im:image'][2].label);
+
+//       }
+//   });
 /***************************************************************************************************
 * initializeApp 
 * @params {undefined} none
@@ -28,8 +37,63 @@ var student_array = [];
 */
 function initializeApp() {
       addClickHandlersToElements();
+      pullAPIStudentArray()
 }
-
+function pullAPIStudentArray() {
+      var ajaxToLearningFuze = {
+            url: 'http://s-apis.learningfuze.com/sgt/get', //where we going
+            method: 'post',                  //how are we getting there
+            dataType: 'json',
+            data: {
+                  api_key: '8kXdAtTJtV'
+            }
+      };
+      $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
+            student_array = response.data;
+            updateStudentList();
+      });
+}
+function createNewStudentInAPI(name,course,grade) {
+      var ajaxToLearningFuze = {
+            url: 'http://s-apis.learningfuze.com/sgt/create', //where we going
+            method: 'post',                  //how are we getting there
+            dataType: 'json',
+            data: {
+                  api_key: '8kXdAtTJtV',
+                  name:name,
+                  grade:grade,
+                  course:course
+            }
+      };
+      $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
+            console.log(response);
+            var studentObj = {
+                  name: name,
+                  course: course,
+                  grade: grade,
+                  id: response.new_id
+            };
+            clearAddStudentFormInputs();
+            student_array.push(studentObj)
+            updateStudentList();
+            
+      });
+}
+function deleteStudentInAPI(student_id) {
+      var ajaxToLearningFuze = {
+            url: 'http://s-apis.learningfuze.com/sgt/delete', //where we going
+            method: 'post',                  //how are we getting there
+            dataType: 'json',
+            data: {
+                  api_key: '8kXdAtTJtV',
+                  'student_id':parseInt(student_id)
+            }
+      };
+      $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
+            
+            console.log(response);
+      });
+}
 /***************************************************************************************************
 * addClickHandlerstoElements
 * @params {undefined} 
@@ -40,6 +104,7 @@ function addClickHandlersToElements() {
       // $('tbody ').on('click', '.btn-danger', handleDeleteClicked);
       $('.btn-success').click(handleAddClicked);
       $('.btn-default').click(handleCancelClicked);
+      $('.btn-info').click(handlePullServerDataClicked);
 }
 
 /***************************************************************************************************
@@ -75,14 +140,7 @@ function addStudent() {//makes student object step 1
             return alert('Ensure all fields are complete and the Grade is a number between 0 and 100')
 
       } else {
-            var studentObj = {
-                  name: studentNameInput,
-                  course: courseInput,
-                  grade: studentGradeInput,
-            };
-            clearAddStudentFormInputs();
-            student_array.push(studentObj)
-            updateStudentList();
+            createNewStudentInAPI(studentNameInput,courseInput,studentGradeInput);
 
       }
 }
@@ -97,7 +155,7 @@ function clearAddStudentFormInputs() {
  * into the .student_list tbody
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
-function renderStudentOnDom(student_object) {//makes html element step 2
+function renderStudentOnDom(student_object,index) {//makes html element step 2
       var nameTd = $('<td>', {
             class: 'col-xs-3 col-sm-3',
             text: student_object.name,
@@ -115,9 +173,9 @@ function renderStudentOnDom(student_object) {//makes html element step 2
       });
 
       var deleteButton = $('<button>', {
-            // attr:{
-            //       'data-studentIndex':index,
-            // },
+            attr:{
+                  'data-studentIndex':index,
+            },
             class: 'btn btn-danger',
             text: 'Delete',
             'text-align': 'center',
@@ -132,9 +190,11 @@ function renderStudentOnDom(student_object) {//makes html element step 2
 
       function handleDeleteClicked() {
             var studentIndex = student_array.indexOf(student_object)
-            student_array.splice(studentIndex, 1)
-            newTableRow.remove()
+            deleteStudentInAPI(student_object.id);
+            student_array.splice(studentIndex, 1);
+            newTableRow.remove();
             calculateGradeAverage(student_array);
+
       }
 
 }
@@ -175,10 +235,13 @@ function calculateGradeAverage(array) {
  */
 function renderGradeAverage(average) {
       if (student_array.length > 0) {
-            $('.avgGrade').text(average);
+            $('.avgGrade').text(average.toFixed(2));
       } else {
             $('.avgGrade').text(0)
       }
+}
+function handlePullServerDataClicked(){
+      pullAPIStudentArray(); 
 }
 // function handleDeleteClicked(){
 //       var deletedStudentIndex=$(this).attr('data-studentIndex');
