@@ -60,17 +60,31 @@
         </table>
     </div>
 </div>
-<div id="error-modal" class='modal'>
+<div class="container">
     
-    <div class='modal-header'>
-        <span>Error!</span>
-        <span class="close-modal">&times;</span>
+  
+    <!-- Modal -->
+    <div class="modal fade in" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" onclick=close_modal() data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Error!</h4>
+          </div>
+          <div class="modal-body">
+            <p></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick=close_modal() data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div>
     </div>
-    <div class='intro-modal-body'>
-    <p class='modal-p'></p>
-    </div>
-
-</div>
+    
+  </div>
 </body>
 </html>
 

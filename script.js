@@ -49,9 +49,15 @@ function pullAPIStudentArray() {
             }
       };
       $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
+            if(response.success==false&&response.errors!==undefined){
+                  open_modal(response.errors[0]);
+            }
             student_array = response.data;
             updateStudentList();
-      });
+      }).fail(function(errorResponse){
+            
+            open_modal(errorResponse.statusText);
+      });;
 }
 function createNewStudentInAPI(name,course,grade) {
       var ajaxToLearningFuze = {
@@ -63,10 +69,14 @@ function createNewStudentInAPI(name,course,grade) {
                   name:name,
                   grade:grade,
                   course:course
+                  
             }
       };
       $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
             console.log(response);
+            if(response.success==false&&response.errors!==undefined){
+                  open_modal(response.errors[0]);
+            }
             var studentObj = {
                   name: name,
                   course: course,
@@ -77,7 +87,10 @@ function createNewStudentInAPI(name,course,grade) {
             student_array.push(studentObj)
             updateStudentList();
             
-      });
+      }).fail(function(errorResponse){
+            
+            open_modal(errorResponse.statusText);
+      });;
 }
 function deleteStudentInAPI(student_id) {
       var ajaxToLearningFuze = {
@@ -86,12 +99,19 @@ function deleteStudentInAPI(student_id) {
             dataType: 'json',
             data: {
                   api_key: '8kXdAtTJtV',
-                  'student_id':parseInt(student_id)
+                  'student_id':parseInt(student_id),
+                  // 'force-failure':'server'
             }
       };
       $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
             
             console.log(response);
+            if(response.success==false&&response.errors!==undefined){
+                  open_modal(response.errors[0]);
+            }
+      }).fail(function(errorResponse){
+            
+            open_modal(errorResponse.statusText);
       });
 }
 /***************************************************************************************************
@@ -105,6 +125,7 @@ function addClickHandlersToElements() {
       $('.btn-success').click(handleAddClicked);
       $('.btn-default').click(handleCancelClicked);
       $('.btn-info').click(handlePullServerDataClicked);
+      
 }
 
 /***************************************************************************************************
@@ -136,13 +157,13 @@ function addStudent() {//makes student object step 1
       var studentNameInput = $('#studentName').val();
       var courseInput = $('#course').val();
       var studentGradeInput = $('#studentGrade').val();
-      if (studentNameInput === '' || courseInput === '' || studentGradeInput === '' || parseFloat(studentGradeInput) < 0 || parseFloat(studentGradeInput) > 100 || isNaN(studentGradeInput)) {
-            return alert('Ensure all fields are complete and the Grade is a number between 0 and 100')
+      // if (studentNameInput === '' || courseInput === '' || studentGradeInput === '' || parseFloat(studentGradeInput) < 0 || parseFloat(studentGradeInput) > 100 || isNaN(studentGradeInput)) {
+      //       // return alert('Ensure all fields are complete and the Grade is a number between 0 and 100')
 
-      } else {
+      // } else {
             createNewStudentInAPI(studentNameInput,courseInput,studentGradeInput);
 
-      }
+      // }
 }
 /***************************************************************************************************
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -243,6 +264,16 @@ function renderGradeAverage(average) {
 function handlePullServerDataClicked(){
       pullAPIStudentArray(); 
 }
+function close_modal(){
+      $('#myModal').css('display', 'none');
+}
+function open_modal(message){
+      
+      $('#myModal').css('display', 'block');
+      $('.modal-body>p').text(message)
+      
+}
+
 // function handleDeleteClicked(){
 //       var deletedStudentIndex=$(this).attr('data-studentIndex');
 //       student_array.splice(deletedStudentIndex)
