@@ -23,8 +23,9 @@ if($result){
         $output['error'] = 'no data available';
     }
 } else {
-    $output['error'] = 'the database threw up(check query)'
+    $output['error'] = 'the database threw up';
 }
+
 $json_output = json_encode( $output );
 
 print($json_output);
