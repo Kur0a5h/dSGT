@@ -2,6 +2,10 @@
 
 require_once('mysqlcredentials.php');
 
+if( empty( $_GET['course'] ) ){
+
+}
+
 $query = "SELECT * FROM `students`";
 
 $result = mysqli_query( $db, $query );
