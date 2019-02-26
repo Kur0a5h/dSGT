@@ -40,15 +40,15 @@ function initializeApp() {
       pullAPIStudentArray()
 }
 function pullAPIStudentArray() {
-      var ajaxToLearningFuze = {
-            url: 'http://s-apis.learningfuze.com/sgt/get', //where we going
+      var ajaxToGetStudents = {
+            url: 'http://localhost:8080/SGT/server/getstudents.php', //where we going
             method: 'post',                  //how are we getting there
             dataType: 'json',
-            data: {
-                  api_key: '8kXdAtTJtV'
-            }
+            // data: {
+            //       api_key: '8kXdAtTJtV'
+            // }
       };
-      $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
+      $.ajax(ajaxToGetStudents).then(function (response) { //a promise
             if(response.success==false&&response.errors!==undefined){
                   open_modal(response.errors[0]);
             }
