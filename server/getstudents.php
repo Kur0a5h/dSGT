@@ -1,12 +1,18 @@
 <?php
+//$_GET, $_POST  superglobals
+
+
 
 require_once('mysqlcredentials.php');
-
-if( empty( $_GET['course'] ) ){
+$query = "SELECT * FROM `students`";
+if( !empty( $_GET['course'] ) ){
+    $course = addslashes($_GET['course']);
+    $query .= "WHERE `course`='{$course}'";
+}else{
 
 }
 
-$query = "SELECT * FROM `students`";
+
 
 $result = mysqli_query( $db, $query );
 
