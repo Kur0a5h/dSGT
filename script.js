@@ -41,7 +41,7 @@ function initializeApp() {
 }
 function pullAPIStudentArray() {
       var ajaxToGetStudents = {
-            url: 'http://localhost:8080/SGT/server/getstudents.php', //where we going
+            url: 'server/getstudents.php', //where we going
             method: 'post',                  //how are we getting there
             dataType: 'json',
             // data: {
