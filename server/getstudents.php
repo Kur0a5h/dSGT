@@ -1,6 +1,7 @@
 <?php
 //$_GET, $_POST  superglobals
-
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-ALlow-Headers: *");
 
 
 require_once('mysqlcredentials.php');

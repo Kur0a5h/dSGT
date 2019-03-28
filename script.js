@@ -60,19 +60,18 @@ function pullAPIStudentArray() {
       });;
 }
 function createNewStudentInAPI(name,course,grade) {
-      var ajaxToLearningFuze = {
-            url: 'http://s-apis.learningfuze.com/sgt/create', //where we going
+      var ajaxToAddStudent = {
+            url: 'server/addstudent.php', //where we going
             method: 'post',                  //how are we getting there
             dataType: 'json',
             data: {
-                  api_key: '8kXdAtTJtV',
                   name:name,
                   grade:grade,
                   course:course
                   
             }
       };
-      $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
+      $.ajax(ajaxToAddStudent).then(function (response) { //a promise
             console.log(response);
             if(response.success==false&&response.errors!==undefined){
                   open_modal(response.errors[0]);
@@ -94,7 +93,7 @@ function createNewStudentInAPI(name,course,grade) {
 }
 function deleteStudentInAPI(student_id) {
       var ajaxToLearningFuze = {
-            url: 'http://s-apis.learningfuze.com/sgt/delete', //where we going
+            url: 'server/deletestudent.php', //where we going
             method: 'post',                  //how are we getting there
             dataType: 'json',
             data: {
