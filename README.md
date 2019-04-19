@@ -5,6 +5,7 @@ includes HTML structure that will need to be updated with boostrap classes. For 
 understand how to style an application with bootstrap, take input values and apply them to objects, and update the DOM
 with a visual of those objects stored.
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -60,6 +61,9 @@ with a visual of those objects stored.
 <img src="https://cloud.githubusercontent.com/assets/10343746/9148437/22e2566e-3d30-11e5-9401-ba2cb8309d65.png" width="500"/>
 =======
 
+=======
+
+>>>>>>> master
 - <a href="https://github.com/Learning-Fuze/SGT/tree/v.1lf#getting-started">Getting Started</a>
 - <a href="https://github.com/Learning-Fuze/SGT/tree/v.1lf#scope">View Scope</a>
 - <a href="https://github.com/Learning-Fuze/SGT/tree/v.1lf#design">View Design</a>
@@ -84,6 +88,9 @@ Version 1.0 picks up where 0.5 left off. You will now be populating records from
 ## Version 2.0
 #### Description
 Version 2.0 adds more CRUD functionality.  Previously you added R (Read), and now you will be adding Create and Delete functionality. You will now be adding records to a database via the LearningFuze SGT API.
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 
 - <a href="https://github.com/Learning-Fuze/SGT/tree/v2.0lf#getting-started" target="_blank">Getting Started</a>
