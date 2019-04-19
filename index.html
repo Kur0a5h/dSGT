@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+</head>
+<body>
+<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
+    <div class="col-xs-12 col-sm-12 page-header media-heading">
+        <!-- only show this element when the isnt on mobile -->
+        <h1 class='hidden-xs col-sm-12'>Student Grade Table
+            <small class='col-sm-3 col-sm-offset-9'>Grade Average : <span class="avgGrade label label-default">0</span></small>
+        </h1>
+        <!-- only show this element when the user gets to a mobile version -->
+        <h3 class='hidden-lg hidden-md hidden-sm '>Student Grade Table
+            <small class='col-xs-4 col-xs-offset-8'>Grade Average : <span class="avgGrade label label-default">0</span></small>
+        </h3>
+    </div>
+    <div class="student-add-form form-group col-xs-12 col-sm-4 col-sm-push-8">
+        <h4>Add Student</h4>
+        <div class='input-group form-group '>
+            <span class='input-group-addon'>
+                <span class="glyphicon glyphicon-user"></span>
+            </span>
+            <input pattern="^[a-zA-Z ]{3,}$" type="text" class='addInput form-control' name="studentName" id="studentName" placeholder="Student Name">
+        </div>
+        <div id="studentNameErrorContainer" class="text-danger"></div>
+        <div class='input-group form-group '>
+            <span class='input-group-addon'>
+                <span class="glyphicon glyphicon-list-alt"></span>
+            </span>
+            <input pattern="^[a-zA-Z ]{3,}$" type="text" class='addInput form-control' name="course" id="course"
+                   placeholder="Student Course">
+        </div>
+        <div id="courseErrorContainer" class="text-danger"></div>
+        <div class='input-group form-group '>
+            <span class='input-group-addon'>
+                <span class="glyphicon glyphicon-education"></span>
+            </span>
+            <input pattern="^[1-9][0-9]?$|^100$" type="text" class='addInput form-control' name="studentGrade" id="studentGrade"
+                   placeholder="Student Grade">
+        </div>
+        <div id="studentGradeErrorContainer" class="text-danger"></div>
+
+        <button type="button" class="test btn btn-success" onclick="">Add</button>
+        <button type="button" class="btn btn-default" onclick="">Cancel</button>
+        <button type='button' class='btn btn-primary pull-right'>Pull Server Data</button>
+    </div>
+    <div class="student-list-container col-xs-12 col-sm-7 col-sm-pull-4 page-header media-heading ">
+        <table class="student-list table table-striped table-hover table-sm  col-xs-12 col-sm-12 col-sm-push-1">
+            <thead>
+            <tr>
+                <th class='col-xs-3 col-sm-3'>Student Name</th>
+                <th class='col-xs-3 col-sm-3'>Student Course</th>
+                <th class='col-xs-3 col-sm-3'>Student Grade</th>
+                <th class='col-xs-3 col-sm-3'>Operations</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container">
+    
+  
+    <!-- Modal -->
+    <div class="modal fade in" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" onclick=close_modal() data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Error!</h4>
+          </div>
+          <div class="modal-body">
+            <p></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick=close_modal() data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+  <div id="myModal" class="container modal fade col-xs-12">
+    <div class="modal-dialog row">
+    
+        <div class="modal-content">
+            <div class="modal-header d-block">
+                <button type="button" onclick="clearModalContents" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center"></h4>
+            </div>
+            <div class="modal-body row errorText">
+                <!-- <p>Please fix the following errors:</p>
+                <div id="errorText" class="text-danger"></div> -->
+            </div>
+            <div class="d-block modal-footer">
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    
+    </div>
+</div>
+</body>
+</html>
+

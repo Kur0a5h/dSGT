@@ -1,3 +1,12 @@
 .DS_Store
+<<<<<<< HEAD
+<<<<<<< HEAD
+mysqlcredentials.php
+=======
 .idea
 README.md
+>>>>>>> master
+=======
+.idea
+README.md
+>>>>>>> master
