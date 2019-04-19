@@ -105,7 +105,8 @@ function deleteStudentInAPI(student_id) {
             }
       };
       $.ajax(ajaxToLearningFuze).then(function (response) { //a promise
-            
+            clearModalContents();
+            $('#myModal').modal('hide');
             console.log(response);
             if(response.success==false&&response.errors!==undefined){
                   open_modal(response.errors[0]);
@@ -221,7 +222,7 @@ function renderStudentOnDom(studentObject,index) {//makes html element step 2
       });
       
       var deleteButton = $('<button>', {
-            class: 'btn btn-danger',
+            class: 'btn btn-danger pull-right',
             text: 'Delete',
             'data-student': studentObject.id,
             on: {
@@ -238,7 +239,7 @@ function renderStudentOnDom(studentObject,index) {//makes html element step 2
             }
       });
      
-      deleteContainer.append( deleteButton, editButton);
+      deleteContainer.append( editButton, deleteButton);
       tableRow.append(deleteContainer);
       $('.student-list tbody').append(tableRow);
 
