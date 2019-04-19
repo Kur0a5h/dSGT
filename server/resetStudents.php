@@ -1,27 +1,27 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-require_once('mysql_creds.php');
+require_once('mysqlcredentials.php');
 $output = [
     'success' => false
 ];
-$deleteStmt = $db->prepare("TRUNCATE TABLE studentGradeTable");
+$deleteStmt = $db->prepare("TRUNCATE TABLE students");
 $deleteResult = $deleteStmt->execute();
 if ($deleteResult) {
     $insertStmt = $db->prepare("
-    INSERT INTO studentGradeTable 
+    INSERT INTO students 
         (name, course, grade)
     VALUES
-        ('Justen','Computer Science', 100),
-        ('Jake','Photography', 87),
-        ('Melissa','History', 95),
-        ('Jennifer','Data Structures and Algorithms', 77),
-        ('Alyssa','Strength and Conditiong', 93),
-        ('John','Psychology', 63),
-        ('Nicole','Introduction to Piano', 88),
-        ('Sasha','Graphic Design', 73),
-        ('Brian','Public Speaking', 91),
-        ('Dan','World Religion', 75)
+        ('Kuroash Esmaili','PHP Backend', 99),
+        ('John Roe','Math', 88),
+        ('Chris Warren','Planning', 100),
+        ('Justen Quirante','Design', 95),
+        ('Remmy LeBeua','Agilities', 92),
+        ('Mike Capo','MySQL', 94),
+        ('Quy QUy','Baking', 86),
+        ('Jordan Salisbury','Project Management', 92),
+        ('Dan Paschal','Public Speaking', 54),
+        ('Andy Ong','Mentoring', 100)
     ");
     $insertResult = $insertStmt->execute();
     if ($insertResult) {

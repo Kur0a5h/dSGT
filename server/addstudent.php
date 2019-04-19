@@ -1,16 +1,20 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-require_once('mysql_creds.php');
+
+require_once('mysqlcredentials.php');
+
 $name = $_POST["name"];
 $course = $_POST["course"];
 $grade = $_POST["grade"];
+
 $nameError = '';
 $courseError = '';
 $gradeError = '';
 $output = [
     'success' => false
 ];
+
 if ( empty($_POST["name"]) ) {
     $nameError = "Student Name -- Please enter a valid name";
     $output [ "nameError" ] =  $nameError;
@@ -42,13 +46,14 @@ if ( empty($_POST["grade"]) ) {
     }
 }
 if ($nameError === '' and $courseError === '' and $gradeError === '') {
-    $stmt = $db->prepare("INSERT INTO `studentGradeTable` (`name`,`course`,`grade`) VALUES (?,?,?)");
+    $stmt = $db->prepare("INSERT INTO `students` (`name`,`course`,`grade`) VALUES (?,?,?)");
     $stmt->bind_param("ssi", $name, $course, $grade);
     $result = $stmt->execute();
     print_r('result', $result);
     if ($result) {
         
         $output['success'] = true;
+        $output['new_id']=mysqli_insert_id($db);
         
     } else {
         

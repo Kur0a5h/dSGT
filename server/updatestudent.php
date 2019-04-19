@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-ALlow-Headers: *");
-require_once('mysql_creds.php');
+require_once('mysqlcredentials.php');
 $nameError = '';
 $courseError = '';
 $gradeError = '';
@@ -41,7 +41,7 @@ if (empty($_POST["grade"])) {
     }
 }
 if ($nameError === '' and $courseError === '' and $gradeError === '') {
-    $stmt = $db->prepare("UPDATE `studentGradeTable` AS s SET s.name=?, s.course=?, s.grade=? WHERE s.ID=?");
+    $stmt = $db->prepare("UPDATE `students` AS s SET s.name=?, s.course=?, s.grade=? WHERE s.ID=?");
     $stmt->bind_param("ssii", $name, $course, $grade, $student_id);
     $result = $stmt->execute();
     if ($result) {
